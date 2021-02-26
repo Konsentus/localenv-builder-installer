@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+import subprocess
+import os
+import errno
+import shutil
+
+bin_dir = "/usr/local/bin"
+install_dir = "/usr/local/var/localenv-builder"
+repo_ssh = "https://github.com/konsentus/localenv-builder.git"
+
+
+def git(*args):
+    return subprocess.check_call(["git"] + list(args))
+
+
+def mkdirs(newdir, mode=0o777, force=False):
+    if force and os.path.exists(install_dir):
+        shutil.rmtree(install_dir)
+
+    try:
+        os.makedirs(newdir, mode)
+    except OSError as err:
+        # Reraise the error unless it's about an already existing directory
+        if err.errno != errno.EEXIST or not os.path.isdir(newdir):
+            raise
+
+
+def symlink(src, dst):
+    try:
+        os.unlink(dst)
+    except EnvironmentError:
+        pass
+
+    os.symlink(src, dst)
+
+
+mkdirs(install_dir, 0o775, True)
+shutil.chown(install_dir, group="admin")
+os.chdir(install_dir)
+
+git("clone", repo_ssh, "-q", ".")
+
+symlink("{}/build".format(install_dir), "{}/{}".format(bin_dir, "build-env"))
+symlink("{}/clean".format(install_dir), "{}/{}".format(bin_dir, "clean-env"))
+
+print("\nDone. run 'build-env' to start building the local environment")
