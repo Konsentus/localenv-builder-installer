@@ -1,6 +1,8 @@
-# localenv-builder-install
+# Localenv Builder Installer
 
-This repo contains the installer for the Konsentus Local Development environment
+This repo contains the installer for the Konsentus Local Development environment.
+
+The actual builder is in the repo: https://github.com/Konsentus/localenv-builder
 
 ## Prerequisites
 
