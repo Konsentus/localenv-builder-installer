@@ -7,7 +7,7 @@ import shutil
 
 bin_dir = "/usr/local/bin"
 install_dir = "/usr/local/var/localenv-builder"
-repo_ssh = "https://github.com/konsentus/localenv-builder.git"
+repo_ssh = "git@github.com:Konsentus/localenv-builder.git"
 
 
 def git(*args):
