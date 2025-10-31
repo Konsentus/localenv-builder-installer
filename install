@@ -44,4 +44,6 @@ git("clone", repo_ssh, "-q", ".")
 symlink("{}/build".format(install_dir), "{}/{}".format(bin_dir, "build-env"))
 symlink("{}/clean".format(install_dir), "{}/{}".format(bin_dir, "clean-env"))
 
-print("\nDone. run 'build-env' to start building the local environment")
+print("\nDone. You can now start building your local environment")
+print("\nEngineers should run 'build-env --inc-brew-apps' to include tools like Docker")
+print("\nNon-engineers should simply run 'build-env'")
